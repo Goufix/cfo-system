@@ -16,7 +16,9 @@ export default function MemberCard(props: Props) {
           </Col>
           <Col style={{ textAlign: "right" }}>
             <Image
-              src={`https://www.habbo.com.br/habbo-imaging/avatarimage?hb=image&user=${props.name}&headonly=1&direction=4&head_direction=4&action=&gesture=&size=m`}
+              src={`https://www.habbo.com.br/habbo-imaging/avatarimage?hb=image&user=${
+                props.name
+              }&headonly=1&direction=4&head_direction=4&action=&gesture=&size=m&__date__=${Date.now()}`}
               alt="Avatar"
               style={{ margin: 0 }}
             />

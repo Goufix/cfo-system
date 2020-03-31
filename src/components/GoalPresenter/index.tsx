@@ -3,9 +3,10 @@ import tabletop from "tabletop";
 import MemberCard from "../MemberCard";
 import SearchBar from "../SearchBar";
 import Header from "../Header";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import Typing from "react-typing-animation";
 import { RouteComponentProps } from "@reach/router";
+import CopyToClipboard from "react-copy-to-clipboard";
 
 interface Sheet {
   professor: string;
@@ -92,6 +93,14 @@ export default function GoalPresenter(props: Props) {
         <SearchBar
           handleChange={e => setFilterNick(e.currentTarget.value.toLowerCase())}
         />
+        <CopyToClipboard
+          text={userData
+            .map(({ Nick, points }) => `${Nick} - ${points}0%`)
+            .join("\n")}
+          onCopy={() => alert(`meta de ${props.title} copiada com sucesso!`)}
+        >
+          <Button variant="dark"> Copiar meta</Button>
+        </CopyToClipboard>
         <Row>
           {userData.map((user, index) => {
             return (
