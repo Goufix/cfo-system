@@ -2,12 +2,14 @@ import React from "react";
 import GoalPresenter from "./components/GoalPresenter";
 import { NavigationBar } from "./components/NavBar";
 import { Router } from "@reach/router";
+import Home from "./components/Home";
 
 function App() {
   return (
     <>
       <NavigationBar />
       <Router>
+        <Home path="/" />
         <GoalPresenter
           title="LEGISLAÇÃO"
           sheetKey="1PS-OTqtz3PD4gfuCezJymXCFv3urAEMLqN0FS0XeEsE"

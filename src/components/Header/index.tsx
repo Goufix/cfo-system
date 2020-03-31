@@ -11,10 +11,10 @@ export default function Header(props: Props) {
     <>
       <Container style={{ textAlign: "center", fontFamily: "Inria Sans" }}>
         <img src={logo} alt="" />
-        <h1>{props.title}</h1>
-        <h4>
+        <h4>{props.title}</h4>
+        <h6>
           Imperatriz: <strong>Vacita</strong>
-        </h4>
+        </h6>
         <hr />
       </Container>
     </>

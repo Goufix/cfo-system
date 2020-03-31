@@ -13,41 +13,20 @@ export function NavigationBar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Brand>Centro de Formação de Oficiais</Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link
-            to="/administration"
-            style={{ fontWeight: "bolder" }}
-            disabled
-            as={Link}
-          >
-            Administração
+          <Nav.Link to="/administration" disabled as={Link}>
+            <strong>Administração</strong>
           </Nav.Link>
-          <Nav.Link
-            to="/legislation"
-            style={{ fontWeight: "bolder" }}
-            as={Link}
-          >
-            Legislação
+          <Nav.Link to="/legislation" as={Link}>
+            <strong>Legislação</strong>
           </Nav.Link>
-          <Nav.Link
-            to="/militarcareer"
-            style={{ fontWeight: "bolder" }}
-            as={Link}
-          >
-            Carreira Militar
+          <Nav.Link to="/militarcareer" as={Link}>
+            <strong>Carreira Militar</strong>
           </Nav.Link>
-          <Nav.Link
-            to="/militarcience"
-            style={{ fontWeight: "bolder" }}
-            as={Link}
-          >
-            Ciências Militares
+          <Nav.Link to="/militarcience" as={Link}>
+            <strong>Ciências Militares</strong>
           </Nav.Link>
-          <Nav.Link
-            to="/assessments"
-            style={{ fontWeight: "bolder" }}
-            as={Link}
-          >
-            Avaliações
+          <Nav.Link to="/assessments" as={Link}>
+            <strong>Avaliações</strong>
           </Nav.Link>
         </Nav>
         <Nav className="ml-auto">
