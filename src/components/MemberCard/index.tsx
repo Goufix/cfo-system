@@ -26,7 +26,7 @@ export default function MemberCard(props: Props) {
       <ProgressBar
         now={(props.points / 3) * 100}
         style={{ borderRadius: 0 }}
-        label={`${props.points}%`}
+        label={`${props.points}0%`}
         animated
       />
     </Card>
