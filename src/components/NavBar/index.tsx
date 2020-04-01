@@ -13,7 +13,7 @@ export function NavigationBar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Brand>Centro de Formação de Oficiais</Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link to="/administration" disabled as={Link}>
+          <Nav.Link to="/administration" as={Link}>
             <strong>Administração</strong>
           </Nav.Link>
           <Nav.Link to="/legislation" as={Link}>
