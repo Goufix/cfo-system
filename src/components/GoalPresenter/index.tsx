@@ -116,13 +116,21 @@ export default function GoalPresenter(props: Props) {
                 } else {
                   return `[color="#c00"][b]${Nick}[/b] {${lessons} Aul/${activities} Atv} - ${points}0%[/color]`;
                 }
-              } else {
+              } else if (props.title !== "AVALIAÇÕES") {
                 if (index === 0) {
                   return `[color="#999"][b]${Nick}[/b] {${points} Aul} - ${points}0% [Melhor professor do mês][/color]`;
                 } else if (points > 3) {
-                  return `[color="#090"][b]${Nick}[/b] {${points} Aul} - ${points}0% [Melhor professor do mês][/color]`;
+                  return `[color="#090"][b]${Nick}[/b] {${points} Aul} - ${points}0%[/color]`;
                 } else {
-                  return `[color="#c00"][b]${Nick}[/b] {${points} Aul} - ${points}0% [Melhor professor do mês][/color]`;
+                  return `[color="#c00"][b]${Nick}[/b] {${points} Aul} - ${points}0%[/color]`;
+                }
+              } else {
+                if (index === 0) {
+                  return `[color="#999"][b]${Nick}[/b] {${points} Avl} - ${points}0% [Melhor avaliador do mês][/color]`;
+                } else if (points > 3) {
+                  return `[color="#090"][b]${Nick}[/b] {${points} Avl} - ${points}0%[/color]`;
+                } else {
+                  return `[color="#c00"][b]${Nick}[/b] {${points} Avl} - ${points}0%[/color]`;
                 }
               }
             })
