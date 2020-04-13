@@ -108,12 +108,22 @@ export default function GoalPresenter(props: Props) {
         <CopyToClipboard
           text={userData
             .map(({ Nick, points, lessons, activities }, index) => {
-              if (index === 0) {
-                return `[color="#999999"][b]${Nick}[/b] {${lessons} Aul/${activities} Atv} - ${points}0% [Melhor professor da semana][/color]`;
-              } else if (points > 3) {
-                return `[color="#009900"][b]${Nick}[/b] {${lessons} Aul/${activities} Atv} - ${points}0%[/color]`;
+              if (lessons) {
+                if (index === 0) {
+                  return `[color="#999"][b]${Nick}[/b] {${lessons} Aul/${activities} Atv} - ${points}0% [Melhor professor da semana][/color]`;
+                } else if (points > 3) {
+                  return `[color="#090"][b]${Nick}[/b] {${lessons} Aul/${activities} Atv} - ${points}0%[/color]`;
+                } else {
+                  return `[color="#c00"][b]${Nick}[/b] {${lessons} Aul/${activities} Atv} - ${points}0%[/color]`;
+                }
               } else {
-                return `[color="#cc0000"][b]${Nick}[/b] {${lessons} Aul/${activities} Atv} - ${points}0%[/color]`;
+                if (index === 0) {
+                  return `[color="#999"][b]${Nick}[/b] {${points} Aul} - ${points}0% [Melhor professor do mês][/color]`;
+                } else if (points > 3) {
+                  return `[color="#090"][b]${Nick}[/b] {${points} Aul} - ${points}0% [Melhor professor do mês][/color]`;
+                } else {
+                  return `[color="#c00"][b]${Nick}[/b] {${points} Aul} - ${points}0% [Melhor professor do mês][/color]`;
+                }
               }
             })
             .join("\n")}
