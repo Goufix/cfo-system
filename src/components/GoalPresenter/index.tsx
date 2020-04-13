@@ -12,10 +12,13 @@ import CopyToClipboard from "react-copy-to-clipboard";
 
 interface Sheet {
   professor: string;
+  tipo: string;
 }
 interface UserData {
   Nick: string;
   points: number;
+  lessons: number;
+  activities: number;
 }
 
 interface Props extends RouteComponentProps {
@@ -33,18 +36,23 @@ export default function GoalPresenter(props: Props) {
     const users = [
       ...new Set(sheetData.map((line) => line.professor.toLowerCase())),
     ];
-    const userDataPivot: any[] = [];
+    const userDataPivot: UserData[] = [];
 
     users.forEach((user) => {
       const points = sheetData.filter(
         (line) => line.professor.toLowerCase() === user
       ).length;
-
+      const lessons = sheetData.filter(
+        (line) =>
+          line.professor.toLowerCase() === user &&
+          line.tipo === "Relatório de aula"
+      ).length;
+      const activities = points - lessons;
       if (points === 0) {
         return;
       }
 
-      userDataPivot.push({ Nick: user, points });
+      userDataPivot.push({ Nick: user, points, lessons, activities });
     });
 
     setuserData(
@@ -99,7 +107,15 @@ export default function GoalPresenter(props: Props) {
         />
         <CopyToClipboard
           text={userData
-            .map(({ Nick, points }) => `${Nick} - ${points}0%`)
+            .map(({ Nick, points, lessons, activities }, index) => {
+              if (index === 0) {
+                return `[color="#999999"][b]${Nick}[/b] {${lessons} Aul/${activities} Atv} - ${points}0% [Melhor professor da semana][/color]`;
+              } else if (points > 3) {
+                return `[color="#009900"][b]${Nick}[/b] {${lessons} Aul/${activities} Atv} - ${points}0%[/color]`;
+              } else {
+                return `[color="#cc0000"][b]${Nick}[/b] {${lessons} Aul/${activities} Atv} - ${points}0%[/color]`;
+              }
+            })
             .join("\n")}
           onCopy={() => toast("Meta copiada com sucesso!", { type: "success" })}
         >
