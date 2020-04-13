@@ -5,6 +5,8 @@ import SearchBar from "../SearchBar";
 import Header from "../Header";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import Typing from "react-typing-animation";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { RouteComponentProps } from "@reach/router";
 import CopyToClipboard from "react-copy-to-clipboard";
 
@@ -29,13 +31,13 @@ export default function GoalPresenter(props: Props) {
 
   const setRenderData = useCallback(() => {
     const users = [
-      ...new Set(sheetData.map(line => line.professor.toLowerCase()))
+      ...new Set(sheetData.map((line) => line.professor.toLowerCase())),
     ];
     const userDataPivot: any[] = [];
 
-    users.forEach(user => {
+    users.forEach((user) => {
       const points = sheetData.filter(
-        line => line.professor.toLowerCase() === user
+        (line) => line.professor.toLowerCase() === user
       ).length;
 
       if (points === 0) {
@@ -47,7 +49,7 @@ export default function GoalPresenter(props: Props) {
 
     setuserData(
       userDataPivot
-        .filter(line => line.Nick.includes(filterNick))
+        .filter((line) => line.Nick.includes(filterNick))
         .sort((a, b) => a.points - b.points)
         .reverse()
     );
@@ -61,7 +63,7 @@ export default function GoalPresenter(props: Props) {
           setSheetData(data);
           setLoading(false);
         },
-        simpleSheet: true
+        simpleSheet: true,
       });
     }
     getSheetData();
@@ -91,13 +93,15 @@ export default function GoalPresenter(props: Props) {
       <Container>
         <Header title={props.title} />
         <SearchBar
-          handleChange={e => setFilterNick(e.currentTarget.value.toLowerCase())}
+          handleChange={(e) =>
+            setFilterNick(e.currentTarget.value.toLowerCase())
+          }
         />
         <CopyToClipboard
           text={userData
             .map(({ Nick, points }) => `${Nick} - ${points}0%`)
             .join("\n")}
-          onCopy={() => alert(`meta de ${props.title} copiada com sucesso!`)}
+          onCopy={() => toast("Meta copiada com sucesso!", { type: "success" })}
         >
           <Button variant="dark"> Copiar meta</Button>
         </CopyToClipboard>
@@ -110,6 +114,7 @@ export default function GoalPresenter(props: Props) {
             );
           })}
         </Row>
+        <ToastContainer autoClose={2000} />
       </Container>
     </>
   );
