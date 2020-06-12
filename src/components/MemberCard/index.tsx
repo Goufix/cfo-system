@@ -27,7 +27,7 @@ export default function MemberCard(props: Props) {
       </Card.Header>
       <ProgressBar
         now={
-          props.title !== "AVALIAÇÕES"
+          props.name !== "AVALIAÇÕES"
             ? (props.points / 50) * 100
             : (props.points / 80) * 100
         }
