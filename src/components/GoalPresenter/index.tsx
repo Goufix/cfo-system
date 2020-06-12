@@ -39,15 +39,37 @@ export default function GoalPresenter(props: Props) {
     const userDataPivot: UserData[] = [];
 
     users.forEach((user) => {
-      const points = sheetData.filter(
-        (line) => line.professor.toLowerCase() === user
-      ).length;
-      const lessons = sheetData.filter(
-        (line) =>
-          line.professor.toLowerCase() === user &&
-          line.tipo === "Relatório de aula"
-      ).length;
-      const activities = points - lessons;
+      let points;
+      let lessons;
+      let activities;
+
+      if (props.title === "ADMINISTRAÇÃO") {
+        points =
+          sheetData.filter((line) => line.professor.toLowerCase() === user)
+            .length * 5;
+        lessons =
+          sheetData.filter(
+            (line) =>
+              line.professor.toLowerCase() === user &&
+              line.tipo === "Relatório de aula"
+          ).length * 5;
+
+        activities = points - lessons;
+      } else {
+        points =
+          sheetData.filter((line) => line.professor.toLowerCase() === user)
+            .length * 10;
+
+        lessons =
+          sheetData.filter(
+            (line) =>
+              line.professor.toLowerCase() === user &&
+              line.tipo === "Relatório de aula"
+          ).length * 10;
+
+        activities = points - lessons;
+      }
+
       if (points === 0) {
         return;
       }
@@ -61,7 +83,7 @@ export default function GoalPresenter(props: Props) {
         .sort((a, b) => a.points - b.points)
         .reverse()
     );
-  }, [sheetData, filterNick]);
+  }, [sheetData, filterNick, props.title]);
 
   useEffect(() => {
     async function getSheetData() {
@@ -108,29 +130,30 @@ export default function GoalPresenter(props: Props) {
         <CopyToClipboard
           text={userData
             .map(({ Nick, points, lessons, activities }, index) => {
+              const lessonsCount = points / 10;
               if (lessons) {
                 if (index === 0) {
-                  return `[color="#999"][b]${Nick}[/b] {${lessons} Aul/${activities} Atv} - ${points}0% [Melhor professor da semana][/color]`;
-                } else if (points > 3) {
-                  return `[color="#090"][b]${Nick}[/b] {${lessons} Aul/${activities} Atv} - ${points}0%[/color]`;
+                  return `[color="#999"][b]${Nick}[/b] {${lessons} Aul/${activities} Atv} - ${points}% [Melhor professor da semana][/color]`;
+                } else if (points > 50) {
+                  return `[color="#090"][b]${Nick}[/b] {${lessons} Aul/${activities} Atv} - ${points}%[/color]`;
                 } else {
-                  return `[color="#c00"][b]${Nick}[/b] {${lessons} Aul/${activities} Atv} - ${points}0%[/color]`;
+                  return `[color="#c00"][b]${Nick}[/b] {${lessons} Aul/${activities} Atv} - ${points}%[/color]`;
                 }
               } else if (props.title !== "AVALIAÇÕES") {
                 if (index === 0) {
-                  return `[color="#999"][b]${Nick}[/b] {${points} Aul} - ${points}0% [Melhor professor do mês][/color]`;
-                } else if (points > 3) {
-                  return `[color="#090"][b]${Nick}[/b] {${points} Aul} - ${points}0%[/color]`;
+                  return `[color="#999"][b]${Nick}[/b] {${lessonsCount} Aul} - ${points}% [Melhor professor do mês][/color]`;
+                } else if (points > 50) {
+                  return `[color="#090"][b]${Nick}[/b] {${lessonsCount} Aul} - ${points}%[/color]`;
                 } else {
-                  return `[color="#c00"][b]${Nick}[/b] {${points} Aul} - ${points}0%[/color]`;
+                  return `[color="#c00"][b]${Nick}[/b] {${lessonsCount} Aul} - ${points}%[/color]`;
                 }
               } else {
                 if (index === 0) {
-                  return `[color="#999"][b]${Nick}[/b] {${points} Avl} - ${points}0% [Melhor avaliador do mês][/color]`;
-                } else if (points > 3) {
-                  return `[color="#090"][b]${Nick}[/b] {${points} Avl} - ${points}0%[/color]`;
+                  return `[color="#999"][b]${Nick}[/b] {${lessonsCount} Avl} - ${points}% [Melhor avaliador do mês][/color]`;
+                } else if (points > 50) {
+                  return `[color="#090"][b]${Nick}[/b] {${lessonsCount} Avl} - ${points}%[/color]`;
                 } else {
-                  return `[color="#c00"][b]${Nick}[/b] {${points} Avl} - ${points}0%[/color]`;
+                  return `[color="#c00"][b]${Nick}[/b] {${lessonsCount} Avl} - ${points}%[/color]`;
                 }
               }
             })
