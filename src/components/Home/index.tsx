@@ -23,7 +23,7 @@ const HelpTip = styled.div`
     background-repeat: no-repeat;
     background-image: url(https://www.habbo.com.br/habbo-imaging/avatarimage?hb=image&user=Goufix&headonly=0&direction=2&head_direction=2&action=&gesture=&size=l);
     box-shadow: inset -2px -3px rgba(0, 0, 0, 0.05);
-    transition: all linear 120ms;
+    transition: all linear 500ms;
 
     &:hover {
       background-position-y: -30px;
