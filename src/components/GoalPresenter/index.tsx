@@ -160,7 +160,7 @@ export default function GoalPresenter(props: Props) {
             .join("\n")}
           onCopy={() => toast("Meta copiada com sucesso!", { type: "success" })}
         >
-          <Button variant="dark"> Copiar meta</Button>
+          <Button variant="dark">Copiar meta</Button>
         </CopyToClipboard>
         <Row>
           {userData.map((user, index) => {

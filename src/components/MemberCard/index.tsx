@@ -26,7 +26,11 @@ export default function MemberCard(props: Props) {
         </Row>
       </Card.Header>
       <ProgressBar
-        now={(props.points / 50) * 100}
+        now={
+          props.title !== "AVALIAÇÕES"
+            ? (props.points / 50) * 100
+            : (props.points / 80) * 100
+        }
         style={{ borderRadius: 0 }}
         label={`${props.points}%`}
         animated
