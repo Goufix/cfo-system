@@ -149,8 +149,8 @@ export default function GoalPresenter(props: Props) {
                 }
               } else {
                 if (index === 0) {
-                  return `[color="#999"][b]${Nick}[/b] {${lessonsCount} Avl} - ${points}% [Melhor avaliador do mês][/color]`;
-                } else if (points > 50) {
+                  return `[color="#999"][b]${Nick}[/b] {${lessonsCount} Avl} - ${points}% [Melhor avaliador da quinzena][/color]`;
+                } else if (points > 80) {
                   return `[color="#090"][b]${Nick}[/b] {${lessonsCount} Avl} - ${points}%[/color]`;
                 } else {
                   return `[color="#c00"][b]${Nick}[/b] {${lessonsCount} Avl} - ${points}%[/color]`;
