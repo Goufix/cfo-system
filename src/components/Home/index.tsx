@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import { RouteComponentProps } from "@reach/router";
+import { RouteComponentProps } from '@reach/router';
+import React from 'react';
+import styled from 'styled-components';
 
 const HelpTip = styled.div`
   text-align: center;
@@ -43,10 +43,10 @@ export default function Home(_: RouteComponentProps) {
         da meta do Centro de Formação de Oficiais.
       </p>
       <p className="help=tip__description">
-        Qualquer bug ou sugestão deve ser encaminhado para{" "}
+        Qualquer bug ou sugestão deve ser encaminhado para{' '}
         <a
           href="https://api.whatsapp.com/send?phone=5519991913193"
-          style={{ color: "#555" }}
+          style={{ color: '#555' }}
         >
           <strong>Goufix</strong>
         </a>

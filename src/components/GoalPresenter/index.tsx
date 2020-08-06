@@ -1,24 +1,20 @@
-import React, { useState, useEffect, useCallback } from "react";
-import tabletop from "tabletop";
-import MemberCard from "../MemberCard";
-import SearchBar from "../SearchBar";
-import Header from "../Header";
-import { Container, Row, Col, Button } from "react-bootstrap";
-import Typing from "react-typing-animation";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { RouteComponentProps } from "@reach/router";
-import CopyToClipboard from "react-copy-to-clipboard";
+import { RouteComponentProps } from '@reach/router';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Container, Row, Col, Button } from 'react-bootstrap';
+import CopyToClipboard from 'react-copy-to-clipboard';
+import { ToastContainer, toast } from 'react-toastify';
+import Typing from 'react-typing-animation';
+import tabletop from 'tabletop';
+import { getGoalByUser } from '../../utils/getGoalByUser';
+import { UserData } from '../../utils/getGoalByUser';
+import Header from '../Header';
+import MemberCard from '../MemberCard';
+import SearchBar from '../SearchBar';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface Sheet {
   professor: string;
   tipo: string;
-}
-interface UserData {
-  Nick: string;
-  points: number;
-  lessons: number;
-  activities: number;
 }
 
 interface Props extends RouteComponentProps {
@@ -30,11 +26,11 @@ export default function GoalPresenter(props: Props) {
   const [loading, setLoading] = useState(true);
   const [sheetData, setSheetData] = useState<Sheet[]>([]);
   const [userData, setuserData] = useState<UserData[]>([]);
-  const [filterNick, setFilterNick] = useState("");
+  const [filterNick, setFilterNick] = useState('');
 
   const setRenderData = useCallback(() => {
     const users = [
-      ...new Set(sheetData.map((line) => line.professor.toLowerCase())),
+      ...new Set(sheetData.map((line) => line.professor.toLowerCase()))
     ];
     const userDataPivot: UserData[] = [];
 
@@ -43,7 +39,7 @@ export default function GoalPresenter(props: Props) {
       let lessons;
       let activities;
 
-      if (props.title === "ADMINISTRAÇÃO") {
+      if (props.title === 'ADMINISTRAÇÃO') {
         points =
           sheetData.filter((line) => line.professor.toLowerCase() === user)
             .length * 5;
@@ -51,7 +47,7 @@ export default function GoalPresenter(props: Props) {
           sheetData.filter(
             (line) =>
               line.professor.toLowerCase() === user &&
-              line.tipo === "Relatório de aula"
+              line.tipo === 'Relatório de aula'
           ).length * 5;
 
         activities = points - lessons;
@@ -64,7 +60,7 @@ export default function GoalPresenter(props: Props) {
           sheetData.filter(
             (line) =>
               line.professor.toLowerCase() === user &&
-              line.tipo === "Relatório de aula"
+              line.tipo === 'Relatório de aula'
           ).length * 10;
 
         activities = points - lessons;
@@ -93,7 +89,7 @@ export default function GoalPresenter(props: Props) {
           setSheetData(data);
           setLoading(false);
         },
-        simpleSheet: true,
+        simpleSheet: true
       });
     }
     getSheetData();
@@ -107,7 +103,7 @@ export default function GoalPresenter(props: Props) {
     return (
       <Container>
         <Header title={props.title} />
-        <h1 style={{ display: "inline" }}>
+        <h1 style={{ display: 'inline' }}>
           <Typing hideCursor speed={0}>
             carregando
             <Typing.Speed ms={50} />
@@ -128,37 +124,8 @@ export default function GoalPresenter(props: Props) {
           }
         />
         <CopyToClipboard
-          text={userData
-            .map(({ Nick, points, lessons, activities }, index) => {
-              const lessonsCount = points / 10;
-              if (lessons) {
-                if (index === 0) {
-                  return `[color="#999"][b]${Nick}[/b] {${lessons} Aul/${activities} Atv} - ${points}% [Melhor professor da semana][/color]`;
-                } else if (points > 50) {
-                  return `[color="#090"][b]${Nick}[/b] {${lessons} Aul/${activities} Atv} - ${points}%[/color]`;
-                } else {
-                  return `[color="#c00"][b]${Nick}[/b] {${lessons} Aul/${activities} Atv} - ${points}%[/color]`;
-                }
-              } else if (props.title !== "AVALIAÇÕES") {
-                if (index === 0) {
-                  return `[color="#999"][b]${Nick}[/b] {${lessonsCount} Aul} - ${points}% [Melhor professor do mês][/color]`;
-                } else if (points > 50) {
-                  return `[color="#090"][b]${Nick}[/b] {${lessonsCount} Aul} - ${points}%[/color]`;
-                } else {
-                  return `[color="#c00"][b]${Nick}[/b] {${lessonsCount} Aul} - ${points}%[/color]`;
-                }
-              } else {
-                if (index === 0) {
-                  return `[color="#999"][b]${Nick}[/b] {${lessonsCount} Avl} - ${points}% [Melhor avaliador da quinzena][/color]`;
-                } else if (points > 80) {
-                  return `[color="#090"][b]${Nick}[/b] {${lessonsCount} Avl} - ${points}%[/color]`;
-                } else {
-                  return `[color="#c00"][b]${Nick}[/b] {${lessonsCount} Avl} - ${points}%[/color]`;
-                }
-              }
-            })
-            .join("\n")}
-          onCopy={() => toast("Meta copiada com sucesso!", { type: "success" })}
+          text={getGoalByUser(userData, props.title)}
+          onCopy={() => toast('Meta copiada com sucesso!', { type: 'success' })}
         >
           <Button variant="dark">Copiar meta</Button>
         </CopyToClipboard>

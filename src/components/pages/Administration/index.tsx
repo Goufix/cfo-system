@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useCallback } from "react";
-import tabletop from "tabletop";
-import MemberCard from "../../MemberCard";
-import SearchBar from "../../SearchBar";
-import { Container, Row, Col } from "react-bootstrap";
-import Typing from "react-typing-animation";
+import React, { useState, useEffect, useCallback } from 'react';
+import tabletop from 'tabletop';
+import MemberCard from '../../MemberCard';
+import SearchBar from '../../SearchBar';
+import { Container, Row, Col } from 'react-bootstrap';
+import Typing from 'react-typing-animation';
 
 interface Sheet {
   Nick: string;
@@ -19,19 +19,23 @@ export default function Administration() {
   const [loading, setLoading] = useState(true);
   const [sheetData, setSheetData] = useState<Sheet[]>([]);
   const [userData, setuserData] = useState<UserData[]>([]);
-  const [filterNick, setFilterNick] = useState("");
+  const [filterNick, setFilterNick] = useState('');
   const [totalPoints, setTotalPoints] = useState(0);
 
   const setRenderData = useCallback(() => {
-    const users = [...new Set(sheetData.map(line => line.Nick.toLowerCase()))];
+    const users = [
+      ...new Set(sheetData.map((line) => line.Nick.toLowerCase()))
+    ];
     const userDataPivot: any[] = [];
 
-    setTotalPoints(sheetData.filter(line => line.STATUS === "APROVADO").length);
+    setTotalPoints(
+      sheetData.filter((line) => line.STATUS === 'APROVADO').length
+    );
 
-    users.forEach(user => {
+    users.forEach((user) => {
       const points = sheetData
-        .filter(line => line.STATUS === "APROVADO")
-        .filter(line => line.Nick.toLowerCase() === user).length;
+        .filter((line) => line.STATUS === 'APROVADO')
+        .filter((line) => line.Nick.toLowerCase() === user).length;
 
       if (points === 0) {
         return;
@@ -42,7 +46,7 @@ export default function Administration() {
 
     setuserData(
       userDataPivot
-        .filter(line => line.Nick.includes(filterNick))
+        .filter((line) => line.Nick.includes(filterNick))
         .sort((a, b) => a.points - b.points)
         .reverse()
     );
@@ -51,7 +55,7 @@ export default function Administration() {
   useEffect(() => {
     async function getSheetData() {
       await tabletop.init({
-        key: "1FwYH3PzWkwC9FBMnp2xPRlrG-FY7kJUpl4oC1GpOllU",
+        key: '1FwYH3PzWkwC9FBMnp2xPRlrG-FY7kJUpl4oC1GpOllU',
         callback: (data: Sheet[]) => {
           setSheetData(data);
           setLoading(false);
@@ -69,7 +73,7 @@ export default function Administration() {
   if (loading) {
     return (
       <Container>
-        <h1 style={{ display: "inline" }}>
+        <h1 style={{ display: 'inline' }}>
           <Typing hideCursor speed={0}>
             carregando
             <Typing.Speed ms={50} />
@@ -84,7 +88,9 @@ export default function Administration() {
     <>
       <Container>
         <SearchBar
-          handleChange={e => setFilterNick(e.currentTarget.value.toLowerCase())}
+          handleChange={(e) =>
+            setFilterNick(e.currentTarget.value.toLowerCase())
+          }
         />
         <div>
           <h2>
@@ -92,14 +98,14 @@ export default function Administration() {
           </h2>
           <button
             style={{
-              border: "none",
-              backgroundColor: "transparent",
-              outline: "inherit"
+              border: 'none',
+              backgroundColor: 'transparent',
+              outline: 'inherit'
             }}
           >
             <strong>
               <p
-                style={{ color: "#000" }}
+                style={{ color: '#000' }}
                 onClick={() => window.location.reload(false)}
               >
                 Recaregar lista

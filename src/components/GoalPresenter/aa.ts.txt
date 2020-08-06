@@ -1,0 +1,32 @@
+function getLessonsGoal(userData, title) {
+  userData
+    .map(({ Nick, points, lessons, activities }, index) => {
+      const lessonsCount = points / 10;
+      if (lessons) {
+        if (index === 0) {
+          return `[color="#999"][b]${Nick}[/b] {${lessons} Aul/${activities} Atv} - ${points}% [Melhor professor da semana][/color]`;
+        } else if (points > 50) {
+          return `[color="#090"][b]${Nick}[/b] {${lessons} Aul/${activities} Atv} - ${points}%[/color]`;
+        } else {
+          return `[color="#c00"][b]${Nick}[/b] {${lessons} Aul/${activities} Atv} - ${points}%[/color]`;
+        }
+      } else if (title !== 'AVALIAÇÕES') {
+        if (index === 0) {
+          return `[color="#999"][b]${Nick}[/b] {${lessonsCount} Aul} - ${points}% [Melhor professor do mês][/color]`;
+        } else if (points > 50) {
+          return `[color="#090"][b]${Nick}[/b] {${lessonsCount} Aul} - ${points}%[/color]`;
+        } else {
+          return `[color="#c00"][b]${Nick}[/b] {${lessonsCount} Aul} - ${points}%[/color]`;
+        }
+      } else {
+        if (index === 0) {
+          return `[color="#999"][b]${Nick}[/b] {${lessonsCount} Avl} - ${points}% [Melhor avaliador da quinzena][/color]`;
+        } else if (points > 80) {
+          return `[color="#090"][b]${Nick}[/b] {${lessonsCount} Avl} - ${points}%[/color]`;
+        } else {
+          return `[color="#c00"][b]${Nick}[/b] {${lessonsCount} Avl} - ${points}%[/color]`;
+        }
+      }
+    })
+    .join('\n');
+}
